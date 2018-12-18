@@ -1,11 +1,7 @@
-@import '../variables';
-
-.main {
-  .main-header {
-
-  }
-
-  .main-inside {
-
-  }
+.main{
+  background-color: antiquewhite;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

@@ -1,10 +1,9 @@
 import React from 'react';
 
 import Hello from '../hello';
-import Counter from '../counter';
+import Dashboard from '../Dashboard';
 
-
-import './content.scss';
+import '../content/content.scss';
 
 const Content = () => (
     <div className='content'>
@@ -12,8 +11,9 @@ const Content = () => (
             name="Se Mi"
         />
         <br/>
-
-        <Counter/>
+        <Dashboard/>
+        <br/>
+        <a href="#">Go to the task list</a>
 
     </div>
 );

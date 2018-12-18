@@ -17,7 +17,7 @@ if (time < 3 )
 
 const Hello = (props) =>{
     return props.name
-        ? <span>{text} {props.name}</span>
+        ? <span>{text} <b>{props.name}</b></span>
         : <span>{text}</span>
 };
 
