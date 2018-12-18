@@ -6,7 +6,7 @@ import './main.scss';
 
 const Main = () => (
     <main className='main'>
-        <Content/>
+        <Content />
     </main>
 );
 

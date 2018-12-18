@@ -9,7 +9,7 @@ class Dashboard extends Component {
     };
 
     render() {
-        const {done, inProgress, waiting} = this.state;
+        const { done, inProgress, waiting } = this.state;
         const allTaks = done + inProgress + waiting;
 
         return (

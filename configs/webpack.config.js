@@ -22,8 +22,8 @@ const plugins = [
         })
 ];
 
-if(isFileCss){
-    plugins.push(new MiniCssExtractPlugin({filename:'style.css'}));
+if (isFileCss) {
+    plugins.push(new MiniCssExtractPlugin( { filename:'style.css' } ));
 }
 
 
