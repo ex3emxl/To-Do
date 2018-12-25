@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Hello from '../hello';
+import Hello from './hello';
 import Dashboard from '../Dashboard';
 
 import '../content/content.scss';
