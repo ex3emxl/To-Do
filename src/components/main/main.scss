@@ -1,7 +1,11 @@
 .main{
   background-color: antiquewhite;
+  //background-image: url("adventure-asia.jpg");;
   min-height: 100vh;
   display: flex;
-  justify-content: center;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-around;
   align-items: center;
+  align-content: stretch;
 }
