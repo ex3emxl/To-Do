@@ -2,7 +2,7 @@ import React from 'react';
 
 import './tasklist.scss';
 
-import {FaTrashAlt, FaBatteryThreeQuarters, FaCheck} from 'react-icons/fa';
+import { FaTrashAlt, FaBatteryThreeQuarters, FaCheck } from 'react-icons/fa';
 
 class Tasklist extends Component {
 
@@ -16,7 +16,7 @@ class Tasklist extends Component {
     };
 
     componentDidMount() {
-        fetch(`https://jsonplaceholder.typicode.com/todos?userId=${this.userId}`)
+        fetch(`https://jsonplaceholder.typicode.com/todos?userId=${ this.userId }`)
             .then(response => response.json())
             .then(todos => {
                 return this.setState({todos})
@@ -40,7 +40,7 @@ class Tasklist extends Component {
                 return el
             }
         );
-        this.setState({todos: userTasks});
+        this.setState({ todos: userTasks });
         e.preventDefault();
     }
 
@@ -58,10 +58,10 @@ class Tasklist extends Component {
 
     render() {
 
-        const {todos, displayFilter} = this.state;
+        const { todos, displayFilter } = this.state;
         const tasks = displayFilter.length ? displayFilter : todos;
 
-        if (displayFilter === this.noResults) {
+        if ( displayFilter === this.noResults ) {
 
             return (
                 <div>
@@ -84,12 +84,12 @@ class Tasklist extends Component {
                     <ol className='tasklist'>
                         {
                             tasks.map(el => (
-                                <li className={el.completed ? 'completed' : ''} key={el.id} onClick={() => null}>
+                                <li className={ el.completed ? 'completed' : '' } key={ el.id } onClick={ () => null }>
                                     {el.title}
-                                    <a className="delete" onClick={this.deleteTask}><FaTrashAlt/></a>
-                                    <a className="in-progress" onClick={this.inProgress}><FaBatteryThreeQuarters/></a>
-                                    <a className={el.completed ? '' : 'complete'}
-                                       onClick={(e) => this.completeTask(el.id, e)}><FaCheck/></a>
+                                    <a className="delete" onClick={ this.deleteTask }><FaTrashAlt/></a>
+                                    <a className="in-progress" onClick={ this.inProgress }><FaBatteryThreeQuarters/></a>
+                                    <a className={ el.completed ? '' : 'complete' }
+                                       onClick={ (e) => this.completeTask(el.id, e) }><FaCheck/></a>
                                 </li>
                             ))
                         }
