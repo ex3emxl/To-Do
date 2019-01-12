@@ -1,9 +1,9 @@
 import React from 'react';
 
 import Hello from './hello';
-import Dashboard from '../Dashboard';
+import Dashboard from './Dashboard';
 
-import '../content/content.scss';
+import './content.scss';
 
 const Content = () => (
     <div className='content'>
