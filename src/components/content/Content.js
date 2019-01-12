@@ -11,7 +11,7 @@ const Content = () => (
             name="Se Mi"
         />
         <br/>
-        <Dashboard/>
+        <Dashboard />
         <br/>
         <a href="#">Go to the task list</a>
 
