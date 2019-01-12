@@ -1,5 +1,3 @@
-import React from 'react';
-
 import './tasklist.scss';
 
 import { FaTrashAlt, FaBatteryThreeQuarters, FaCheck } from 'react-icons/fa';
@@ -8,7 +6,7 @@ class Tasklist extends Component {
 
     userId = 3;
 
-    noResults = "No Results";
+    noResults = 'No Results';
 
     state = {
         todos: [],
@@ -19,7 +17,7 @@ class Tasklist extends Component {
         fetch(`https://jsonplaceholder.typicode.com/todos?userId=${ this.userId }`)
             .then(response => response.json())
             .then(todos => {
-                return this.setState({todos})
+                return this.setState({ todos })
             })
     }
 
@@ -32,10 +30,10 @@ class Tasklist extends Component {
     completeTask = (key, e) => {
         const userTasks = this.state.todos.map(
             el => {
-                if (el.completed === false) {
-                    el.id === key ? el.completed = true : el.completed = el.completed;
-                } else if (el.completed === true) {
-                    el.id === key ? el.completed = false : el.completed = el.completed;
+                if (!el.completed) {
+                    el.id === key ? el.completed = true : '';
+                } else if (el.completed) {
+                    el.id === key ? el.completed = false : '';
                 }
                 return el
             }
@@ -45,8 +43,8 @@ class Tasklist extends Component {
     }
 
     handleInputChange = (e) => {
-        if (e.target.value.length > 2){
-            let displayFilter = this.state.todos.filter( task => task.title.includes(e.target.value) );
+        if (e.target.value.length > 2) {
+            let displayFilter = this.state.todos.filter(task => task.title.includes(e.target.value));
             displayFilter = displayFilter.length ? displayFilter : this.noResults;
             this.setState({ displayFilter: displayFilter })
 
@@ -61,31 +59,18 @@ class Tasklist extends Component {
         const { todos, displayFilter } = this.state;
         const tasks = displayFilter.length ? displayFilter : todos;
 
-        if ( displayFilter === this.noResults ) {
-
-            return (
-                <div>
-                    <label>Filter</label>
-                    <input onChange= { this.handleInputChange } type="text"/>
-                    <span>Need type more than 3 symbols</span>
-                    <ul className='tasklist'>
-                        { this.noResults }
-                    </ul>
-                </div>
-            );
-
-        } else {
-
-            return (
-                <div>
-                    <label>Filter</label>
-                    <input onChange= { this.handleInputChange } type="text"/>
-                    <span>Need type more than 3 symbols</span>
+        return (
+            <div>
+                <label>Filter</label>
+                <input onChange={ this.handleInputChange } type="text"/>
+                <span>Need type more than 3 symbols</span>
+                { displayFilter === this.noResults ?
+                    <div className='tasklist'>{ this.noResults }</div> :
                     <ol className='tasklist'>
                         {
                             tasks.map(el => (
-                                <li className={ el.completed ? 'completed' : '' } key={ el.id } onClick={ () => null }>
-                                    {el.title}
+                                <li className={ el.completed ? 'completed' : '' } key={ el.id }>
+                                    { el.title }
                                     <a className="delete" onClick={ this.deleteTask }><FaTrashAlt/></a>
                                     <a className="in-progress" onClick={ this.inProgress }><FaBatteryThreeQuarters/></a>
                                     <a className={ el.completed ? '' : 'complete' }
@@ -94,9 +79,9 @@ class Tasklist extends Component {
                             ))
                         }
                     </ol>
-                </div>
-            );
-        }
+                }
+            </div>
+        );
     }
 }
 
