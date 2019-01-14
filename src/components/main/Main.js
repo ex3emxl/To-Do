@@ -19,18 +19,6 @@ const Main = () => (
         {/*<img src={img}/>*/}
         <Content />
         <Tasklist />
-        <Tabs>
-            <Tab title='Tab 1'>
-                <h3>Tab header 1</h3>
-                <p>Some content is here</p>
-            </Tab>
-
-            <Tab title='Tab 2'>
-                <h3>Tab header 2</h3>
-                <p>Some content is here</p>
-                <time>{new Date().toLocaleDateString()}</time>
-            </Tab>
-        </Tabs>
 
         {/*<Tabs tabs={tabs}/>*/}
     </main>
