@@ -1,5 +1,4 @@
-import {TabNav} from './TabNav';
-import {Tab} from './Tab';
+import { Tab, TabNav } from './';
 
 import './tabs.scss';
 

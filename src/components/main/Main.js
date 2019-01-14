@@ -32,7 +32,7 @@ const Main = () => (
             </Tab>
         </Tabs>
 
-        <Tabs tabs={tabs}/>
+        {/*<Tabs tabs={tabs}/>*/}
     </main>
 );
 
