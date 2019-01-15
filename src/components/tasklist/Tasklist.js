@@ -11,6 +11,9 @@ class Tasklist extends Component {
         tasks: [...Array(7)].map(el => [])
     };
 
+    days = ['пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'вс'];
+    today = new Date().getDay();
+
     componentDidMount() {
         login({ email: 'admin@a.com', password: 'admin' });
         getTasks()
@@ -48,10 +51,10 @@ class Tasklist extends Component {
 
         return (
             <div>
-                <Tabs>
+                <Tabs selectedIndex={ this.today }>
                     {
                         tasks.map((taskList, index) => (
-                            <Tab title={ `Tab ${ index + 1 }` } key={ index }>
+                            <Tab title={ this.days[index] } key={ index }>
                                 <ol className='tasklist'>
                                     {
                                         taskList.map(el => (
@@ -66,6 +69,7 @@ class Tasklist extends Component {
                                         ))
                                     }
                                 </ol>
+                                <span>Добавить новый</span>
                             </Tab>
                         ))
                     }

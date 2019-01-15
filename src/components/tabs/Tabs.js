@@ -3,31 +3,28 @@ import { Tab, TabNav } from './';
 import './tabs.scss';
 
 export class Tabs extends Component {
-  state ={
-    selectedIndex: 0
-  }
+    state = {}
 
-  selectTab = (selectedIndex) => {
-    this.setState({selectedIndex});
-  }
+    selectTab = (selectedIndex) => {
+        this.setState({ selectedIndex });
+    }
 
-  render() {
-    const { children } = this.props;
-    const { selectedIndex } = this.state;
-    const tabs = children.filter(child => child.type === Tab);
-    const titles = tabs.map(tab => tab.props.title);
-    return (
-      <div className="tabs">
-        Tabs
-        <TabNav
-        tabs={titles}
-        selectedIndex={selectedIndex}
-        selectTab={this.selectTab}
-        />
-        <section className="tab-content">
-          {tabs[selectedIndex].props.children}
-        </section>
-      </div>
-    );
-  }
+    render() {
+        const { children, selectedIndex } = this.props;
+        const tabs = children.filter(child => child.type === Tab);
+        const titles = tabs.map(tab => tab.props.title);
+        return (
+            <div className="tabs">
+                Tabs
+                <TabNav
+                    tabs={ titles }
+                    selectedIndex={ selectedIndex }
+                    selectTab={ this.selectTab }
+                />
+                <section className="tab-content">
+                    { tabs[selectedIndex].props.children }
+                </section>
+            </div>
+        );
+    }
 }
