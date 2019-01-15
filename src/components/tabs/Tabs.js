@@ -3,14 +3,17 @@ import { Tab, TabNav } from './';
 import './tabs.scss';
 
 export class Tabs extends Component {
-    state = {}
+    state = {
+        selectedIndex: this.props.selectedIndex - 1
+    }
 
     selectTab = (selectedIndex) => {
         this.setState({ selectedIndex });
     }
 
     render() {
-        const { children, selectedIndex } = this.props;
+        const { children } = this.props;
+        const { selectedIndex } = this.state;
         const tabs = children.filter(child => child.type === Tab);
         const titles = tabs.map(tab => tab.props.title);
         return (
