@@ -1,9 +1,10 @@
 import './tasklist.scss';
 
-import { getTasks, login } from '../../services';
+import { getTasks } from '../../services';
 
 import { FaTrashAlt, FaBatteryThreeQuarters, FaCheck } from 'react-icons/fa';
 import { Tab, Tabs } from "../tabs";
+import * as Constants from '../../constants';
 
 class Tasklist extends Component {
 
@@ -11,13 +12,11 @@ class Tasklist extends Component {
         tasks: [...Array(7)].map(el => [])
     };
 
-    days = ['пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'вс'];
     today = new Date().getDay();
 
     componentDidMount() {
-        login({ email: 'admin@a.com', password: 'admin' });
         getTasks()
-            .then(tasks => this.setState({ tasks: tasks }));
+            .then(tasks => this.setState({ tasks }))
     }
 
     deleteTask = () => {
@@ -26,27 +25,17 @@ class Tasklist extends Component {
     inProgress = () => {
         console.log('in progress')
     }
-    completeTask = (key, e) => {
-        const userTasks = this.state.tasks.map(
-            (tasks) => {
-                tasks.map((el) => {
-                        if (!el.done) {
-                            el.id === key ? el.done = true : '';
-                        } else if (el.done) {
-                            el.id === key ? el.done = false : '';
-                        }
-                        return el
-                    }
-                )
-                return tasks
-            }
-        );
-        this.setState({ tasks: userTasks });
+    completeTask = (outIndex, innerIndex, e) => {
+        const { tasks } = this.state;
+        tasks[outIndex][innerIndex].done === false ?
+            tasks[outIndex][innerIndex].done = true :
+            tasks[outIndex][innerIndex].done = false;
+
+        this.setState({ tasks });
         e.preventDefault();
     }
 
     render() {
-
         const { tasks } = this.state;
 
         return (
@@ -54,22 +43,22 @@ class Tasklist extends Component {
                 <Tabs selectedIndex={ this.today }>
                     {
                         tasks.map((taskList, index) => (
-                            <Tab title={ this.days[index] } key={ index }>
+                            <Tab title={ Constants.DAYS_OF_WEEK[index] } key={ index }>
                                 <ol className='tasklist'>
                                     {
-                                        taskList.map(el => (
+                                        taskList.map((el, i) => (
                                             <li className={ el.done ? 'completed' : '' } key={ el.id }>
                                                 { el.title }
                                                 <a className="delete" onClick={ this.deleteTask }><FaTrashAlt/></a>
                                                 <a className="in-progress"
                                                    onClick={ this.inProgress }><FaBatteryThreeQuarters/></a>
                                                 <a className={ el.done ? '' : 'complete' }
-                                                   onClick={ (e) => this.completeTask(el.id, e) }><FaCheck/></a>
+                                                   onClick={ (e) => this.completeTask(index, i, e) }><FaCheck/></a>
                                             </li>
                                         ))
                                     }
                                 </ol>
-                                <span>Добавить новый</span>
+                                <span>{ Constants.ADD_NEW }</span>
                             </Tab>
                         ))
                     }

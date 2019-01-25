@@ -8,13 +8,13 @@ export const TabNav = ({ tabs, selectedIndex, selectTab }) => {
         <nav className="nav-tab">
             <ul>
                 {
-                    tabs.map((tabs, index) => (
+                    tabs.map((tab, index) => (
                         <li key={ index }
                             className={ selectedIndex === index ? 'active' : '' }
                         >
                             <a href="#"
                                onClick={ event => itemClick(event, index) }
-                            >{ tabs }</a>
+                            >{ tab }</a>
                         </li>
                     ))
                 }
