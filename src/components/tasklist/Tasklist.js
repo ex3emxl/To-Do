@@ -1,24 +1,22 @@
 import './tasklist.scss';
 
+import { getTasks } from '../../services';
+
 import { FaTrashAlt, FaBatteryThreeQuarters, FaCheck } from 'react-icons/fa';
+import { Tab, Tabs } from "../tabs";
+import * as Constants from '../../constants';
 
 class Tasklist extends Component {
 
-    userId = 3;
-
-    noResults = 'No Results';
-
     state = {
-        todos: [],
-        displayFilter: []
+        tasks: [...Array(7)].map(el => [])
     };
 
+    today = new Date().getDay();
+
     componentDidMount() {
-        fetch(`https://jsonplaceholder.typicode.com/todos?userId=${ this.userId }`)
-            .then(response => response.json())
-            .then(todos => {
-                return this.setState({ todos })
-            })
+        getTasks()
+            .then(tasks => this.setState({ tasks }))
     }
 
     deleteTask = () => {
@@ -27,59 +25,44 @@ class Tasklist extends Component {
     inProgress = () => {
         console.log('in progress')
     }
-    completeTask = (key, e) => {
-        const userTasks = this.state.todos.map(
-            el => {
-                if (!el.completed) {
-                    el.id === key ? el.completed = true : '';
-                } else if (el.completed) {
-                    el.id === key ? el.completed = false : '';
-                }
-                return el
-            }
-        );
-        this.setState({ todos: userTasks });
+    completeTask = (outIndex, innerIndex, e) => {
+        const { tasks } = this.state;
+        tasks[outIndex][innerIndex].done === false ?
+            tasks[outIndex][innerIndex].done = true :
+            tasks[outIndex][innerIndex].done = false;
+
+        this.setState({ tasks });
         e.preventDefault();
     }
 
-    handleInputChange = (e) => {
-        if (e.target.value.length > 2) {
-            let displayFilter = this.state.todos.filter(task => task.title.includes(e.target.value));
-            displayFilter = displayFilter.length ? displayFilter : this.noResults;
-            this.setState({ displayFilter: displayFilter })
-
-        } else {
-            this.setState({ displayFilter: [] })
-        }
-        return true
-    }
-
     render() {
-
-        const { todos, displayFilter } = this.state;
-        const tasks = displayFilter.length ? displayFilter : todos;
+        const { tasks } = this.state;
 
         return (
             <div>
-                <label>Filter</label>
-                <input onChange={ this.handleInputChange } type="text"/>
-                <span>Need type more than 3 symbols</span>
-                { displayFilter === this.noResults ?
-                    <div className='tasklist'>{ this.noResults }</div> :
-                    <ol className='tasklist'>
-                        {
-                            tasks.map(el => (
-                                <li className={ el.completed ? 'completed' : '' } key={ el.id }>
-                                    { el.title }
-                                    <a className="delete" onClick={ this.deleteTask }><FaTrashAlt/></a>
-                                    <a className="in-progress" onClick={ this.inProgress }><FaBatteryThreeQuarters/></a>
-                                    <a className={ el.completed ? '' : 'complete' }
-                                       onClick={ (e) => this.completeTask(el.id, e) }><FaCheck/></a>
-                                </li>
-                            ))
-                        }
-                    </ol>
-                }
+                <Tabs selectedIndex={ this.today }>
+                    {
+                        tasks.map((taskList, index) => (
+                            <Tab title={ Constants.DAYS_OF_WEEK[index] } key={ index }>
+                                <ol className='tasklist'>
+                                    {
+                                        taskList.map((el, i) => (
+                                            <li className={ el.done ? 'completed' : '' } key={ el.id }>
+                                                { el.title }
+                                                <a className="delete" onClick={ this.deleteTask }><FaTrashAlt/></a>
+                                                <a className="in-progress"
+                                                   onClick={ this.inProgress }><FaBatteryThreeQuarters/></a>
+                                                <a className={ el.done ? '' : 'complete' }
+                                                   onClick={ (e) => this.completeTask(index, i, e) }><FaCheck/></a>
+                                            </li>
+                                        ))
+                                    }
+                                </ol>
+                                <span>{ Constants.ADD_NEW }</span>
+                            </Tab>
+                        ))
+                    }
+                </Tabs>
             </div>
         );
     }

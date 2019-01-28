@@ -4,10 +4,12 @@ const package = require('../package');
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const argv = process.argv;
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 
 const isFileCss = argv.includes('--styles');
 const timestamp = Date.now();
+const images = ['svg', 'jpg', 'jpeg', 'gif', 'png'];
 
 const plugins = [
     new HtmlWebpackPlugin({
@@ -19,7 +21,17 @@ const plugins = [
         new webpack.ProvidePlugin({
             React: 'react',
             Component: ['react', 'Component']
-        })
+        }),
+        new CopyWebpackPlugin(
+            images.map(ext => ({
+                from: `src/**/*.${ext}`,
+                to: 'images/[name].[ext]'
+            }))
+        //     [ {
+        //     from: 'src/**/*.js',
+        //     to: 'images/[name].[ext]'
+        // } ]
+        )
 ];
 
 if (isFileCss) {
@@ -56,7 +68,19 @@ module.exports = {
                    {loader: "css-loader"},
                    {loader: "sass-loader"}
                ]
-           }
+           },
+            {
+                test: /\.(png|jpe?g|gif|svg)$/i,
+                use: [
+                    {
+                        loader: 'url-loader',
+                        options: {
+                            limit: 8192,
+                            name: 'images/[name].[ext]'
+                        }
+                    }
+                ]
+            }
         ]
     },
     plugins,
@@ -68,7 +92,7 @@ module.exports = {
     devServer: {
         contentBase: path.resolve(__dirname, '../public'),
         publicPath: '/',
-        port: 5500,
+        port: 5501,
         hot: true
     },
     devtool: "inline-source-map"

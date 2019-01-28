@@ -2,39 +2,44 @@ import React from 'react';
 
 import Content from '../content';
 import Tasklist from '../Tasklist';
-// import { Tabs, Tab } from '../tabs';
-// import img from './logo.png';
 
 import './main.scss';
+import { checkUser } from "../../services";
+import Login from "../../pages/login";
 
-// const tabs = [
-//     {title: 'Tab 1', content: 'Some text is here'},
-//     {title: 'Tab 2', content: 'Another content'},
-//     {title: 'Tab 3', content: 'Third text'}
-// ];
+class Main extends Component {
+    state = {
+        user: null,
+        loading: true
+    }
 
+    componentDidMount() {
+        checkUser()
+            .then(data => this.setState({ user: data, loading: false }))
+            .catch(() => this.setState({ loading: false }))
 
-const Main = () => (
-    <main className='main'>
-        {/*<img src={img}/>*/}
-        <Content />
-        <Tasklist />
-        {/*<Tabs>*/}
-            {/*<Tab title='Tab 1'>*/}
-                {/*<h3>Tab header 1</h3>*/}
-                {/*<p>Some content is here</p>*/}
-            {/*</Tab>*/}
+    }
 
-            {/*<Tab title='Tab 2'>*/}
-                {/*<h3>Tab header 2</h3>*/}
-                {/*<p>Some content is here</p>*/}
-                {/*<time>{new Date().toLocaleDateString()}</time>*/}
-            {/*</Tab>*/}
-        {/*</Tabs>*/}
+    onLogin = (user) => {
+        this.setState({
+            user
+        });
+    };
 
-        {/*<Tabs tabs={tabs}/>*/}
-    </main>
-);
+    render() {
+        const { user } = this.state;
 
+        return (
+            <main className='main'>
+                <Content/>
+                { user ?
+                    <Tasklist/>
+                    :
+                    <Login onLogin={ this.onLogin }/>
+                }
+            </main>
+        );
+    }
+}
 
 export default Main;
