@@ -39,7 +39,7 @@ class Tasklist extends Component {
         const { tasks } = this.state;
 
         return (
-            <div>
+            <div className="main">
                 <Tabs selectedIndex={ this.today }>
                     {
                         tasks.map((taskList, index) => (

@@ -1,4 +1,6 @@
 import React from 'react';
+import Hello from "../../components/hello";
+import { Link } from 'react-router-dom'
 
 class Dashboard extends Component {
 
@@ -14,10 +16,14 @@ class Dashboard extends Component {
 
         return (
             <div className='dashboard'>
+                <Hello name="Se Mi" />
+                <br/>
                 <p>You have <b>{allTaks}</b> tasks</p>
                 <p>Done: <b>{done}</b></p>
                 <p>In progress: <b>{inProgress}</b></p>
                 <p>Waiting: <b>{waiting}</b></p>
+                <br/>
+                <Link to="/tasklist">Go to the task list</Link>
             </div>
         );
     }
