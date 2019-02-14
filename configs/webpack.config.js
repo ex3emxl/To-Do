@@ -46,7 +46,8 @@ module.exports = {
     context: path.resolve(__dirname, '../src'),
     output: {
         filename: '[name].js',
-        path: path.resolve(__dirname, '../public')
+        path: path.resolve(__dirname, '../public'),
+        publicPath: '/'
     },
     mode: 'development',
     module: {
@@ -92,8 +93,9 @@ module.exports = {
     devServer: {
         contentBase: path.resolve(__dirname, '../public'),
         publicPath: '/',
-        port: 5501,
-        hot: true
+        port: 8806,
+        hot: true,
+        historyApiFallback: true
     },
     devtool: "inline-source-map"
 };

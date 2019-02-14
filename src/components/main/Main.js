@@ -1,11 +1,9 @@
 import React from 'react';
 
-import Content from '../content';
-import Tasklist from '../Tasklist';
-
 import './main.scss';
 import { checkUser } from "../../services";
 import Login from "../../pages/login";
+import Dashboard from "../../pages/Dashboard";
 
 class Main extends Component {
     state = {
@@ -31,9 +29,9 @@ class Main extends Component {
 
         return (
             <main className='main'>
-                <Content/>
+
                 { user ?
-                    <Tasklist/>
+                    <Dashboard/>
                     :
                     <Login onLogin={ this.onLogin }/>
                 }
