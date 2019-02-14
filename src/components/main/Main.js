@@ -1,9 +1,9 @@
 import React from 'react';
 
 import './main.scss';
-import { checkUser } from "../../services";
-import Login from "../../pages/login";
-import Dashboard from "../../pages/Dashboard";
+import { checkUser } from '../../services';
+import Login from '../../pages/login';
+import Dashboard from '../../pages/dashboard';
 
 class Main extends Component {
     state = {
