@@ -13,7 +13,7 @@ const rootReducers = combineReducers({
     user
 });
 // eslint-disable-next-line
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION__ || compose;
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__  || compose;
 const sagaMiddleware = createSagaMiddleware();
 
 const store = createStore(
