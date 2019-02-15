@@ -1,14 +1,26 @@
-import { createStore, combineReducers } from 'redux';
+import {
+    createStore,
+    combineReducers,
+    applyMiddleware,
+    compose
+} from 'redux';
+import createSagaMiddleware from 'redux-saga';
+
 import { user } from './user';
+import { rootSaga } from "./rootSaga";
 
 const rootReducers = combineReducers({
     user
 });
+// eslint-disable-next-line
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION__ || compose;
+const sagaMiddleware = createSagaMiddleware();
 
 const store = createStore(
     rootReducers,
-    // eslint-disable-next-line
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    composeEnhancers(applyMiddleware(sagaMiddleware))
 );
+
+sagaMiddleware.run(rootSaga);
 
 export default store;

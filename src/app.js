@@ -1,3 +1,4 @@
+import 'babel-polyfill';
 import React from 'react';
 import ReactDom from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
@@ -15,5 +16,9 @@ const Wrapper = (
         </Router>
     </Provider>
 );
+
+if (module.hot) {
+    module.hot.accept();
+}
 
 ReactDom.render(Wrapper, document.getElementById('app'));
