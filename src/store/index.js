@@ -1,10 +1,14 @@
 import { createStore, combineReducers } from 'redux';
-// import * as reducers from './reducers';
+import { user } from './user';
 
-const rootReducers = combineReducers(/* reducers */);
+const rootReducers = combineReducers({
+    user
+});
 
-export const store = createStore(
+const store = createStore(
     rootReducers,
     // eslint-disable-next-line
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
+
+export default store;
