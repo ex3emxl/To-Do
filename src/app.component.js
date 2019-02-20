@@ -1,13 +1,33 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import { Pages } from './pages/Pages';
+import { Main } from './components/main';
 import { Header } from './components/header';
+import { check } from "./store/user";
 
-export const App = () => (
-    <div className="wrapper">
-        <Header />
-        <Pages />
-    </div> );
+class App extends Component {
 
-// export const App = connect()(AppComponent);
+    componentDidMount() {
+        this.props.dispatch(check());
+    }
+
+    render() {
+
+        const { user, info } = this.props;
+
+        return (
+            <div className="wrapper">
+                <Header/>
+                <Main>
+                    <Pages user={ user } info={ info }/>
+                </Main>
+            </div>
+        );
+    }
+}
+
+const mapState = state => ({ user: state.user, info: state.info, error: state.error });
+
+export default withRouter(connect(mapState)(App));
