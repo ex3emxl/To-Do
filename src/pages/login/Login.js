@@ -1,15 +1,15 @@
-import { login } from '../../services';
+import { connect } from 'react-redux';
+import { login } from '../../store/user';
 
-const Login = ({ onLogin }) => {
-    const onSubmit = (ev) => {
-        ev.preventDefault();
-        const { elements } = ev.target;
+const Login = ({ dispatch }) => {
+    const onSubmit = (e) => {
+        e.preventDefault();
+        const { elements } = e.target;
         const data = {
             email: elements.email.value,
             password: elements.password.value,
         };
-
-        login(data).then(onLogin);
+        dispatch(login(data));
     };
 
     return (
@@ -34,4 +34,4 @@ const Login = ({ onLogin }) => {
     );
 };
 
-export default Login
+export default connect()(Login);

@@ -1,43 +1,11 @@
 import React from 'react';
 
 import './main.scss';
-import { checkUser } from '../../services';
-import Login from '../../pages/login';
-import Dashboard from '../../pages/dashboard';
 
-class Main extends Component {
-    state = {
-        user: null,
-        loading: true
-    }
-
-    componentDidMount() {
-        checkUser()
-            .then(data => this.setState({ user: data, loading: false }))
-            .catch(() => this.setState({ loading: false }))
-
-    }
-
-    onLogin = (user) => {
-        this.setState({
-            user
-        });
-    };
-
-    render() {
-        const { user } = this.state;
-
-        return (
-            <main className='main'>
-
-                { user ?
-                    <Dashboard/>
-                    :
-                    <Login onLogin={ this.onLogin }/>
-                }
-            </main>
-        );
-    }
-}
-
-export default Main;
+export const Main = (props) =>{
+  return (
+      <main className="main">
+        {props.children}
+      </main>
+  )
+};
