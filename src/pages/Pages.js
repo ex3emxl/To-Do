@@ -6,11 +6,11 @@ import Tasklist from '../components/tasklist';
 
 export const Pages = ({user}) => (
     <Switch>
-        {console.log(user)}
         {
             user ? [
                 <Route path="/tasklist" component={ Tasklist } key="tasklist"/>,
                 <Route path="/"
+                       exact
                        render={() => <Dashboard user={user}/>}
                        key="dashboard"/>
             ] : [

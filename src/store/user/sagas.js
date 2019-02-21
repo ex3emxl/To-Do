@@ -9,9 +9,8 @@ import {
 } from "./actions";
 
 function* check() {
-    let user;
     try {
-        user = yield checkUser();
+        const user = yield checkUser();
         yield put(setUser(user))
     } catch (error) {
         console.log(error);

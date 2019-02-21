@@ -19,15 +19,15 @@ class App extends Component {
 
         return (
             <div className="wrapper">
-                <Header/>
+                <Header />
                 <Main>
-                    <Pages user={ user } info={ info }/>
+                    <Pages user={ user } info={ info } />
                 </Main>
             </div>
         );
     }
 }
 
-const mapState = state => ({ user: state.user, info: state.info, error: state.error });
+const mapState = state => ({ user: state.user, info: state.info });
 
 export default withRouter(connect(mapState)(App));

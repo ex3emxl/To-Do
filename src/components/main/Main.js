@@ -2,14 +2,10 @@ import React from 'react';
 
 import './main.scss';
 
-export class Main extends Component {
-
-  render() {
-    return (
+export const Main = (props) =>{
+  return (
       <main className="main">
-        {this.props.children}
+        {props.children}
       </main>
-    )
-  }
-
-}
+  )
+};
